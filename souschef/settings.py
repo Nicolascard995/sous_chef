@@ -10,28 +10,34 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+# Importa la clase Path de la biblioteca pathlib para manejar rutas de archivos y directorios
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Define la ruta base del proyecto usando Path, que señala la ubicación de la carpeta raíz
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
+# =============================
+# Configuración de seguridad
+# =============================
 
-# SECURITY WARNING: keep the secret key used in production secret!
+# Llave secreta de Django: usada para encriptar datos sensibles. No debe compartirse en entornos de producción
 SECRET_KEY = 'django-insecure-^rvw3!f+e=6)dqbixpsfe*%a8$3jl=o=6+#6-er@ywl!2n7k@c'
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# Activa el modo de depuración (DEBUG), que debe ser desactivado en producción para mayor seguridad
 DEBUG = True
 
+# Define los hosts permitidos para acceder a la aplicación. Vacío por defecto para el desarrollo local
 ALLOWED_HOSTS = []
 
 
-# Application definition
+# =============================
+# Configuración de aplicaciones
+# =============================
 
+# Lista de aplicaciones instaladas y activas en el proyecto
 INSTALLED_APPS = [
-    # Apps por defecto de Django
+    # Aplicaciones base de Django necesarias para funcionalidades comunes
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,103 +45,135 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    # Django REST Framework
+    # Django REST Framework para manejar API RESTful
     'rest_framework',
 
-    # App de brigada
+    # Aplicación personalizada para la brigada de cocina
     'brigada',
 ]
 
+# =============================
+# Configuración de middleware
+# =============================
+
+# Lista de middleware que Django ejecutará en cada petición HTTP
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',           # Mejora la seguridad en producción
+    'django.contrib.sessions.middleware.SessionMiddleware',    # Maneja sesiones de usuario
+    'django.middleware.common.CommonMiddleware',               # Ofrece middleware común para diversas funciones
+    'django.middleware.csrf.CsrfViewMiddleware',               # Protección CSRF para formularios
+    'django.contrib.auth.middleware.AuthenticationMiddleware', # Manejo de autenticación y sesiones
+    'django.contrib.messages.middleware.MessageMiddleware',    # Manejo de mensajes flash
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',  # Protección contra clickjacking
 ]
 
+# =============================
+# Configuración de URLs y WSGI
+# =============================
+
+# Archivo raíz de configuración de URLs para el proyecto
 ROOT_URLCONF = 'souschef.urls'
 
+# Configuración de templates para manejar HTML y otras vistas basadas en plantillas
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [],              # Directorios adicionales de plantillas (vacío por defecto)
+        'APP_DIRS': True,        # Busca plantillas dentro de cada aplicación instalada
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.debug',    # Proporciona contexto de depuración en plantillas
+                'django.template.context_processors.request',  # Añade request al contexto de plantilla
+                'django.contrib.auth.context_processors.auth', # Añade usuario autenticado al contexto
+                'django.contrib.messages.context_processors.messages', # Añade mensajes flash
             ],
         },
     },
 ]
 
+# Define la aplicación WSGI para desplegar el proyecto en servidores compatibles con WSGI
 WSGI_APPLICATION = 'souschef.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+# =============================
+# Configuración de base de datos
+# =============================
 
+# Configuración de la base de datos usando SQLite (por defecto para desarrollo)
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3', # Motor de base de datos
+        'NAME': BASE_DIR / 'db.sqlite3',        # Archivo de la base de datos
     }
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
+# =============================
+# Validación de contraseñas
+# =============================
 
+# Validadores de seguridad para contraseñas, ayuda a mejorar la seguridad del usuario
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',  # Mínimo de caracteres
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator', # Evita contraseñas comunes
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', # Evita contraseñas numéricas
     },
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
+# =============================
+# Configuración de localización
+# =============================
 
+# Código de idioma por defecto para el proyecto
 LANGUAGE_CODE = 'en-us'
 
+# Zona horaria del proyecto
 TIME_ZONE = 'UTC'
 
+# Habilita la internacionalización
 USE_I18N = True
 
+# Habilita el uso de zonas horarias
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
+# =============================
+# Archivos estáticos (CSS, JavaScript, Imágenes)
+# =============================
 
+# URL base para los archivos estáticos
 STATIC_URL = 'static/'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
+# =============================
+# Configuración de campos de claves primarias
+# =============================
+
+# Configuración para definir el tipo de campo de clave primaria por defecto en modelos
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Django REST Framework settings
+
+# =============================
+# Configuración de Django REST Framework
+# =============================
+
+# Configuraciones de Django REST Framework para autenticación y permisos
 REST_FRAMEWORK = {
+    # Define el tipo de autenticación usando JWT para asegurar las peticiones a la API
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',  # JWT para autenticación segura
     ),
+    # Permisos predeterminados: solo usuarios autenticados pueden acceder a la API
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
-    )
+    ),
 }
