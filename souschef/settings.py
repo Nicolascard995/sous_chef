@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 # Importa la clase Path de la biblioteca pathlib para manejar rutas de archivos y directorios
 from pathlib import Path
+from datetime import timedelta  # Importa timedelta para definir tiempos de vida de los tokens
 
 # Define la ruta base del proyecto usando Path, que señala la ubicación de la carpeta raíz
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -128,6 +129,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # Asegura el uso del backend de autenticación predeterminado
+]
+
+
 
 # =============================
 # Configuración de localización
@@ -160,6 +166,14 @@ STATIC_URL = 'static/'
 
 # Configuración para definir el tipo de campo de clave primaria por defecto en modelos
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# =============================
+# Configuración de seguridad
+# =============================
+
+SECRET_KEY = 'django-insecure-^rvw3!f+e=6)dqbixpsfe*%a8$3jl=o=6+#6-er@ywl!2n7k@c'
+DEBUG = False
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']  # Añade aquí los dominios permitidos en producción
 
 
 # =============================

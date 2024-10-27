@@ -1,12 +1,11 @@
-from django.contrib import admin
-from django.urls import path, include
-from django.http import HttpResponse
+from django.urls import path
+from rest_framework.routers import DefaultRouter
+from .views import RecipeViewSet, InventoryItemViewSet
 
-def home(request):
-    return HttpResponse("Bienvenido a SousChef API")
+# Configura el enrutador y registra los viewsets
+router = DefaultRouter()
+router.register(r'recipes', RecipeViewSet)
+router.register(r'inventory', InventoryItemViewSet)
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('brigada.urls')),
-    path('', home),  # Página de inicio básica
-]
+# Define las rutas del enrutador
+urlpatterns = router.urls
