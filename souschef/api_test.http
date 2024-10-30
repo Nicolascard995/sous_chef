@@ -1,0 +1,64 @@
+### Obtener token de acceso JWT
+POST http://127.0.0.1:8000/api/token/
+Content-Type: application/json
+
+{
+    "username": "nicocard95",
+    "password": "Souschef24+"
+}
+
+### Guardar el token en una variable
+# La respuesta a la solicitud anterior incluirá el token de acceso.
+# Copia el token de la respuesta y guarda su valor en la variable "access_token" en REST Client.
+
+@access_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMwMDYwMjAyLCJpYXQiOjE3MzAwNTY2MDIsImp0aSI6ImEwYTNhYjkzNDU3NjQzZWNiMWUyZTIxNzM5NDllZjcxIiwidXNlcl9pZCI6MX0._NR8LaoBuM06WXw3tE0iV4bvrXRy8pq_u8Mtt-NPe5M"
+
+### Endpoint para ver los miembros de la brigada
+GET http://127.0.0.1:8000/api/members/
+Authorization: Bearer {{access_token}}
+
+### Crear un nuevo miembro de la brigada
+POST http://127.0.0.1:8000/api/members/
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+    "user": 1,  // Cambia esto por el ID de usuario correspondiente
+    "role": "Chef",
+    "schedule": "Lunes a Viernes, 9am - 5pm"
+}
+
+### Ver las recetas
+GET http://127.0.0.1:8000/api/recipes/
+Authorization: Bearer {{access_token}}
+
+### Crear una nueva receta
+POST http://127.0.0.1:8000/api/recipes/
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+    "name": "Receta Ejemplo",
+    "ingredients": "Ingrediente 1, Ingrediente 2",
+    "steps": "Paso 1, Paso 2",
+    "cost": 15.99
+}
+
+### Ver los ítems de inventario
+GET http://127.0.0.1:8000/api/inventory/
+Authorization: Bearer {{access_token}}
+
+### Agregar un nuevo ítem al inventario
+POST http://127.0.0.1:8000/api/inventory/
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+    "name": "Tomates",
+    "quantity": 10.5,
+    "unit": "kg"
+}
+
+### Consultar el reporte de costo total de inventario
+GET http://127.0.0.1:8000/reports/inventory-cost/
+Authorization: Bearer {{access_token}}
